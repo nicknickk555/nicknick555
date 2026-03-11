@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Venturi Catalog</title>
+
+  <!-- MathJax -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Plotly -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background: #109c5d;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    header img {
+      height: 60px;
+      margin-right: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    .page {
+      padding: 40px;
+      display: none;
+      flex: 1;
+    }
+    .active {
+      display: block;
+    }
+    #plot13, #plot25 {
+      width: 700px;
+      height: 450px;
+      margin: 30px auto;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    .nav {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .nav button {
+      background: #109c5d;
+      color: #fff;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    footer {
+      background: #3e5d79;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+    footer a {
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Шапка с логотипом -->
+  <header>
+    <img src="data:image/png;base64,PASTE-YOUR-LOGO-BASE64-HERE" alt="Venturi Logo">
+    <h1>Venturi Carpet Technology Catalog</h1>
+  </header>
+
+  <!-- Page 13 -->
+  <div id="page13" class="page active">
+    <h2>Page 13 — Bonus Slide</h2>
+    <p>Formula rendered with MathJax:</p>
+    <p>\\( C(s) = \\frac{1}{1+s^2} \\)</p>
+    <div id="plot13"></div>
+    <div class="nav">
+      <button onclick="showPage('page25')">➡ Go to Page 25</button>
+    </div>
+  </div>
+
+  <!-- Page 25 -->
+  <div id="page25" class="page">
+    <h2>Page 25 — Main Conclusion</h2>
+    <p>Influence of new bevel geometry:</p>
+    <p>Critical threshold: \\( C_{crit} \\)</p>
+    <div id="plot25"></div>
+    <div class="nav">
+      <button onclick="showPage('page13')">⬅ Back to Page 13</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Venturi Carpet Technology © 2026</p>
+    <p>Contact: <a href="mailto:info@venturi-tech.com">info@venturi-tech.com</a></p>
+    <p>Cloud version: <a href="https://onedrive.live.com/PASTE-YOUR-LINK-HERE" target="_blank">Open in OneDrive</a></p>
+  </footer>
+
+  <script>
+    // Navigation
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    // Plot for Page 13
+    var trace50 = {
+      x: [0,1,2,3,4],
+      y: [0,0.5,1,0.5,0],
+      mode: 'lines+markers',
+      name: '50% fill',
+      line: {color: 'blue'}
+    };
+    var layout13 = {
+      title: 'Page 13 — Fill Level Demo',
+      xaxis: { title: 's' },
+      yaxis: { title: 'C(s)' }
+    };
+    Plotly.newPlot('plot13', [trace50], layout13);
+
+    // Plot for Page 25
+    var trace0 = {
+      x: [0,1,2,3,4],
+      y: [0,0,0,0,0],
+      mode: 'lines',
+      name: '0% fill — air gap',
+      line: {color: 'green'}
+    };
+    var trace75 = {
+      x: [0,1,2,3,4],
+      y: [0,1,2,1,0.5],
+      mode: 'lines+markers',
+      name: '75% fill — long compost',
+      line: {color: 'purple'}
+    };
+    var layout25 = {
+      title: 'Page 25 — Influence of Bevel Geometry',
+      xaxis: { title: 's' },
+      yaxis: { title: 'C(s)' },
+      shapes: [{
+        type: 'line',
+        x0: 0, x1: 4,
+        y0: 1, y1: 1,
+        line: {color: 'orange', dash: 'dash'},
+        name: 'C_crit'
+      }]
+    };
+    Plotly.newPlot('plot25', [trace0, trace75], layout25);
+  </script>
+
+</body>
+</html>
